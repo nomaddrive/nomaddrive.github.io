@@ -208,6 +208,149 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Qualitative Results</h2>
+          <div class="content has-text-justified">
+            <p>Below we show qualitative comparisons between zero-shot transferred policies and policies adapted by NOMAD across different scenarios:</p>
+            <div class="buttons has-addons is-centered qualitative-tabs" style="margin: 1rem 0 2rem; flex-wrap: wrap;">
+              <button class="button is-link is-light is-active" data-scenario="scenario-1">Scenario 1</button>
+              <button class="button is-link is-light" data-scenario="scenario-2">Scenario 2</button>
+              <button class="button is-link is-light" data-scenario="scenario-3">Scenario 3</button>
+              <button class="button is-link is-light" data-scenario="scenario-4">Scenario 4</button>
+              <button class="button is-link is-light" data-scenario="scenario-5">Scenario 5</button>
+            </div>
+
+            <!-- Video Pair 1 -->
+            <div class="qualitative-scenario is-active" id="scenario-1" style="margin-bottom: 3em;">
+              <h4 class="subtitle is-6"><strong>Scenario 1: Geometric mismatch (narrow road) under Boston-to-Singapore transfer.</strong></h4>
+              <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
+                <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
+                <button class="button is-link is-light" data-video="nomad">NOMAD</button>
+              </div>
+              <div class="qualitative-video is-active" data-video="baseline">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_narrowlane_bc.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <div class="qualitative-video" data-video="nomad">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_narrowlane_nomad.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <p>
+                The zero-shot policy, trained in Boston, fails to account for the narrower lane geometry commonly found in Singapore and gradually drifts outside the drivable region, resulting in off-road behavior (yellow).
+                In contrast, NOMAD adapts to the target-city road geometry through map-based self-play and maintains stable lane-centering throughout the maneuver.
+                Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and yellow highlights collision with road boundaries.
+              </p>
+            </div>
+
+            <!-- Video Pair 2 -->
+            <div class="qualitative-scenario" id="scenario-2" style="margin-bottom: 3em;">
+              <h4 class="subtitle is-6"><strong>Scenario 2: Driving-side mismatch under Boston-to-Singapore transfer.</strong></h4>
+              <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
+                <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
+                <button class="button is-link is-light" data-video="nomad">NOMAD</button>
+              </div>
+              <div class="qualitative-video is-active" data-video="baseline">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_drivingside_bc.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <div class="qualitative-video" data-video="nomad">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_drivingside_nomad.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <p>The zero-shot policy exhibits a systematic bias toward right-hand driving learned in the source city, leading to lane violation and collision in the left-hand traffic setting of Singapore.
+                  In contrast, NOMAD adapts its lane-keeping behavior through map-based self-play and consistently drives on the correct side of the road.
+                  Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
+            </div>
+
+            <!-- Video Pair 3 -->
+            <div class="qualitative-scenario" id="scenario-3" style="margin-bottom: 3em;">
+              <h4 class="subtitle is-6"><strong>Scenario 3: Driving-side mismatch under Singapore-to-Boston transfer.</strong></h4>
+              <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
+                <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
+                <button class="button is-link is-light" data-video="nomad">NOMAD</button>
+              </div>
+              <div class="qualitative-video is-active" data-video="baseline">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/sgtobos_drivingside_bc.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <div class="qualitative-video" data-video="nomad">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/sgtobos_drivingside_nomad.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <p>The zero-shot policy retains a left-hand driving bias learned in the source city: vehicle 61 and vehicle 11 both tend to keep left, resulting in lane violations, collision, and off-road behavior in the right-hand traffic setting of Boston. 
+                In contrast, NOMAD adapts its lane-keeping behavior via map-based self-play and consistently drives on the correct side of the road.
+                Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
+            </div>
+
+            <!-- Video Pair 4 -->
+            <div class="qualitative-scenario" id="scenario-4" style="margin-bottom: 3em;">
+              <h4 class="subtitle is-6"><strong>Scenario 4: Cascading collision failure from a Boston-to-Singapore transfer scenario involving dense static obstacles.</strong></h4>
+              <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
+                <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
+                <button class="button is-link is-light" data-video="nomad">NOMAD</button>
+              </div>
+              <div class="qualitative-video is-active" data-video="baseline">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_closedloop_bc.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <div class="qualitative-video" data-video="nomad">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/bostosg_closedloop_nomad.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <p>The zero-shot policy fails to execute an early rightward avoidance maneuver and collides with the first static vehicle. Following the collision, it initiates a right-turn corrective action, whereas a leftward maneuver is required to avoid the second obstacle, leading to a cascading collision.
+                In contrast, NOMAD selects appropriate avoidance actions at both decision points, illustrating improved closed-loop decision making under target-city geometric and obstacle-layout shifts.
+                Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red highlights collision with vehicles.</p>
+            </div>
+
+            <!-- Video Pair 5 -->
+            <div class="qualitative-scenario" id="scenario-5" style="margin-bottom: 3em;">
+              <h4 class="subtitle is-6"><strong>Scenario 5: Interaction mismatch frames from a Singapore-to-Boston transfer scenario involving multiple interacting vehicles.</strong></h4>
+              <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
+                <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
+                <button class="button is-link is-light" data-video="nomad">NOMAD</button>
+              </div>
+              <div class="qualitative-video is-active" data-video="baseline">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/sgtobos_multiagent_bc.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <div class="qualitative-video" data-video="nomad">
+                <video controls style="width: 100%;">
+                  <source src="./static/videos/sgtobos_multiagent_nomad.mp4" type="video/mp4">
+                  Your browser does not support the video.
+                </video>
+              </div>
+              <p>The zero-shot policy exhibits miscalibrated interaction behavior: vehicle 18 approaches significantly faster than vehicle 19, leading to a collision, while vehicle 27 fails to yield appropriately to vehicle 31 at the intersection.
+                In contrast, NOMAD learns more balanced speed regulation and yielding behavior through map-based self-play, enabling safe and coordinated multi-vehicle interaction in the target city.
+                Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
 
   <section class="section">
@@ -218,7 +361,7 @@
           <h2 class="title is-3">City Transfer in Autonomous Driving</h2>
           <div class="content has-text-justified">
             <img src="./static/images/teaser.png" style="width: 70%; display: block; margin: 0 auto;">
-            <p><strong>put this at begining: we revisit a core assumption (conclusion part) make sure this paper rock. Figure 1: City transfer in autonomous driving.</strong> <em>Top:</em> Zero-shot deployment of an imitation policy trained in a source city into a new city leads 
+            <p><strong>We revisit a core assumption (conclusion part) make sure this paper rock. Figure 1: City transfer in autonomous driving.</strong> <em>Top:</em> Zero-shot deployment of an imitation policy trained in a source city into a new city leads 
               to performance degradation due to cross-city distribution shift.
               <em>Bottom:</em> NOMAD adapts the same policy to the target city using only the target-city map and 
               easily accessible meta-information, <em>without any human demonstrations</em>, by performing 
@@ -247,11 +390,12 @@
               A scenario generator samples initial states and goals that are loaded in a data-driven 
               multi-agent simulator, yielding a simulator of \(C\).
               The policy \(\pi_\theta\) is initialized from \(\pi^0\) and optimized via KL-regularized self-play MARL.
+              To ensure the adapted policy remains realistic while maximizing success, we use a minimal reward function (goal achievement and collision avoidance) coupled with a KL-divergence constraint that anchors the policy to the source-city human demonstrations.
               Training checkpoints produce an adapted policy set \(\Pi^+(C)\), from which a deployment 
               policy \(\pi^{\text{deploy}}\) is chosen based on practitioner preferences.
             </p>
 
-            <h3 class="subtitle is-5"><strong>
+            <!-- <h3 class="subtitle is-5"><strong>
               Reward Function</strong></h3>
             <p>
               To demonstrate that NOMAD's effectiveness stems from the adaptation framework itself rather than reward tuning, we deliberately adopt a minimal reward formulation:
@@ -277,7 +421,7 @@
             <p>
               where \(J_{\text{PPO}}(\theta)\) is the proximal policy optimization objective, \(\lambda_\mathrm{KL}\) is the KL regularization weight, 
               \(H\) is the episode horizon, and \(D_{\mathrm{KL}}\) is the Kullback-Leibler divergence between the learned policy \(\pi_\theta\) and the source policy \(\pi^0\).
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -368,13 +512,13 @@
               </ul>
             </div>
 
-            <div style="margin-top: 2em;">
+            <!-- <div style="margin-top: 2em;">
               <img src="./static/images/kl_comparison_frontier.png" style="width: 60%; display: block; margin: 0 auto;">
               <p>
                 <strong>Figure 4: Pareto frontiers of success rate versus realism meta score for different KL weights.</strong>
                 Smaller KL weights favor higher success at the cost of realism, while larger KL weights encourage more realistic behaviors but constrain success rate. The results reveal that the values of \(\lambda_{\text{KL}}\) at around \(0.08\) achieve the best balance. We use the \(\lambda_{\text{KL}}=0.08\) for all city pairs.
               </p>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -382,148 +526,7 @@
     </div>
   </section>
 
-  <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Qualitative Results</h2>
-        <div class="content has-text-justified">
-          <p>Below we show qualitative comparisons between zero-shot transferred policies and policies adapted by NOMAD across different scenarios:</p>
-          <div class="buttons has-addons is-centered qualitative-tabs" style="margin: 1rem 0 2rem; flex-wrap: wrap;">
-            <button class="button is-link is-light is-active" data-scenario="scenario-1">Scenario 1</button>
-            <button class="button is-link is-light" data-scenario="scenario-2">Scenario 2</button>
-            <button class="button is-link is-light" data-scenario="scenario-3">Scenario 3</button>
-            <button class="button is-link is-light" data-scenario="scenario-4">Scenario 4</button>
-            <button class="button is-link is-light" data-scenario="scenario-5">Scenario 5</button>
-          </div>
-
-          <!-- Video Pair 1 -->
-          <div class="qualitative-scenario is-active" id="scenario-1" style="margin-bottom: 3em;">
-            <h4 class="subtitle is-6"><strong>Scenario 1: Geometric mismatch (narrow road) under Boston-to-Singapore transfer.</strong></h4>
-            <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
-              <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
-              <button class="button is-link is-light" data-video="nomad">NOMAD</button>
-            </div>
-            <div class="qualitative-video is-active" data-video="baseline">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_narrowlane_bc.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <div class="qualitative-video" data-video="nomad">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_narrowlane_nomad.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <p>
-              The zero-shot policy, trained in Boston, fails to account for the narrower lane geometry commonly found in Singapore and gradually drifts outside the drivable region, resulting in off-road behavior (yellow).
-              In contrast, NOMAD adapts to the target-city road geometry through map-based self-play and maintains stable lane-centering throughout the maneuver.
-              Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and yellow highlights collision with road boundaries.
-            </p>
-          </div>
-
-          <!-- Video Pair 2 -->
-          <div class="qualitative-scenario" id="scenario-2" style="margin-bottom: 3em;">
-            <h4 class="subtitle is-6"><strong>Scenario 2: Driving-side mismatch under Boston-to-Singapore transfer.</strong></h4>
-            <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
-              <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
-              <button class="button is-link is-light" data-video="nomad">NOMAD</button>
-            </div>
-            <div class="qualitative-video is-active" data-video="baseline">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_drivingside_bc.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <div class="qualitative-video" data-video="nomad">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_drivingside_nomad.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <p>The zero-shot policy exhibits a systematic bias toward right-hand driving learned in the source city, leading to lane violation and collision in the left-hand traffic setting of Singapore.
-                In contrast, NOMAD adapts its lane-keeping behavior through map-based self-play and consistently drives on the correct side of the road.
-                Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
-          </div>
-
-          <!-- Video Pair 3 -->
-          <div class="qualitative-scenario" id="scenario-3" style="margin-bottom: 3em;">
-            <h4 class="subtitle is-6"><strong>Scenario 3: Driving-side mismatch under Singapore-to-Boston transfer.</strong></h4>
-            <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
-              <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
-              <button class="button is-link is-light" data-video="nomad">NOMAD</button>
-            </div>
-            <div class="qualitative-video is-active" data-video="baseline">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/sgtobos_drivingside_bc.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <div class="qualitative-video" data-video="nomad">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/sgtobos_drivingside_nomad.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <p>The zero-shot policy retains a left-hand driving bias learned in the source city: vehicle 61 and vehicle 11 both tend to keep left, resulting in lane violations, collision, and off-road behavior in the right-hand traffic setting of Boston. 
-              In contrast, NOMAD adapts its lane-keeping behavior via map-based self-play and consistently drives on the correct side of the road.
-              Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
-          </div>
-
-          <!-- Video Pair 4 -->
-          <div class="qualitative-scenario" id="scenario-4" style="margin-bottom: 3em;">
-            <h4 class="subtitle is-6"><strong>Scenario 4: Cascading collision failure from a Boston-to-Singapore transfer scenario involving dense static obstacles.</strong></h4>
-            <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
-              <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
-              <button class="button is-link is-light" data-video="nomad">NOMAD</button>
-            </div>
-            <div class="qualitative-video is-active" data-video="baseline">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_closedloop_bc.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <div class="qualitative-video" data-video="nomad">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/bostosg_closedloop_nomad.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <p>The zero-shot policy fails to execute an early rightward avoidance maneuver and collides with the first static vehicle. Following the collision, it initiates a right-turn corrective action, whereas a leftward maneuver is required to avoid the second obstacle, leading to a cascading collision.
-              In contrast, NOMAD selects appropriate avoidance actions at both decision points, illustrating improved closed-loop decision making under target-city geometric and obstacle-layout shifts.
-              Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red highlights collision with vehicles.</p>
-          </div>
-
-          <!-- Video Pair 5 -->
-          <div class="qualitative-scenario" id="scenario-5" style="margin-bottom: 3em;">
-            <h4 class="subtitle is-6"><strong>Scenario 5: Interaction mismatch frames from a Singapore-to-Boston transfer scenario involving multiple interacting vehicles.</strong></h4>
-            <div class="buttons has-addons is-centered qualitative-video-tabs" style="margin: 1rem 0 1.5rem; flex-wrap: wrap;">
-              <button class="button is-link is-light is-active" data-video="baseline">Zero-shot transfer</button>
-              <button class="button is-link is-light" data-video="nomad">NOMAD</button>
-            </div>
-            <div class="qualitative-video is-active" data-video="baseline">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/sgtobos_multiagent_bc.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <div class="qualitative-video" data-video="nomad">
-              <video controls style="width: 100%;">
-                <source src="./static/videos/sgtobos_multiagent_nomad.mp4" type="video/mp4">
-                Your browser does not support the video.
-              </video>
-            </div>
-            <p>The zero-shot policy exhibits miscalibrated interaction behavior: vehicle 18 approaches significantly faster than vehicle 19, leading to a collision, while vehicle 27 fails to yield appropriately to vehicle 31 at the intersection.
-              In contrast, NOMAD learns more balanced speed regulation and yielding behavior through map-based self-play, enabling safe and coordinated multi-vehicle interaction in the target city.
-              Blue denotes the controlled vehicle, the circle indicates the goal location, white boxes represent static vehicles, and red and yellow highlights collision with vehicles and road boundaries, respectively.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Moved Qualitative Results -->
 
 
 
